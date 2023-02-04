@@ -1,0 +1,38 @@
+
+{
+    "item1": {
+      "title": "Microsoft Xbox 360",
+      "qty" : 3,
+      "description": "Product Description",
+      "price": 99.99,
+      "rating": 0.95
+    },
+    "item2": {
+      "title": "2022 Chevrolet Silverado 1500",
+      "qty" : 5,
+      "description": "Product Description",
+      "price": 45000.00,
+      "rating": 0.87
+    },
+    "item3": {
+      "title": "Nokia Lumia 920",
+      "qty" : 500,
+      "description": "Product Description",
+      "price": 45.99,
+      "rating": 0.87
+    },
+    "item4": {
+      "title": "Oster Toaster",
+      "qty" : 150,
+      "description": "Product Description",
+      "price": 59.99,
+      "rating": 0.65
+    },
+    "item5": {
+      "title": "Ryobi 1/2 Inch Impact Driver",
+      "qty" : 3000,
+      "description": "Product Description",
+      "price": 99.99,
+      "rating": 0.80
+    }
+}

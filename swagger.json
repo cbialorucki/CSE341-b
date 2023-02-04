@@ -1,0 +1,99 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Generic Storefront",
+    "description": "A generic storefront API.",
+    "version": "1.0.0"
+  },
+  "host": "cse341-dwbb.onrender.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/store/": {
+      "get": {
+        "description": "Returns all the products in the store.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "Stores a product in the database.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Adds a product to the database",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Product Title"
+                },
+                "qty": {
+                  "type": "number",
+                  "example": 999
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Sample description"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 9.99
+                },
+                "rating": {
+                  "type": "number",
+                  "example": 0.88
+                }
+              },
+              "required": [
+                "title",
+                "qty",
+                "description",
+                "price",
+                "rating"
+              ]
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/store/{id}": {
+      "get": {
+        "description": "Returns one product from the database.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
