@@ -22,13 +22,13 @@ GET http://localhost:8080/api-docs
 
 /// ***PRODUCTION***
 ### Get All Products
-GET https://cse341-dwbb.onrender.com/store
+GET https://cse341-b.onrender.com/store
 
 ### Get One Product
-GET https://cse341-dwbb.onrender.com/store/63dea7756986c1acdd0f1d79
+GET https://cse341-b.onrender.com/store/63dea7756986c1acdd0f1d79
 
 ### List Product
-POST https://cse341-dwbb.onrender.com/store HTTP/1.1
+POST https://cse341-b.onrender.com/store HTTP/1.1
 content-type: application/json
 
 {
@@ -40,4 +40,4 @@ content-type: application/json
 }
 
 ### API Documentation
-GET https://cse341-dwbb.onrender.com/api-docs
+GET https://cse341-b.onrender.com/api-docs

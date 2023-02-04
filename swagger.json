@@ -5,7 +5,7 @@
     "description": "A generic storefront API.",
     "version": "1.0.0"
   },
-  "host": "cse341-dwbb.onrender.com",
+  "host": "cse341-b.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"

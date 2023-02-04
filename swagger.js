@@ -5,7 +5,7 @@ const doc = {
     title: 'Generic Storefront',
     description: 'A generic storefront API.',
   },
-  host: 'cse341-dwbb.onrender.com',
+  host: 'cse341-b.onrender.com',
   schemes: ['https'],
 };
 
