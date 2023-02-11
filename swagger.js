@@ -5,6 +5,16 @@ const doc = {
     title: 'Generic Storefront',
     description: 'A generic storefront API.',
   },
+  tags: [
+    {
+      name: 'Account Management',
+      description: 'A suite of APIs for managing accounts stored in the database.',
+    },
+    {
+      name: 'Product Management',
+      description: 'A suite of APIs for managing products stored in the database.',
+    }
+  ],
   host: 'cse341-b.onrender.com',
   schemes: ['https'],
 };

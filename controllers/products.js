@@ -2,7 +2,9 @@ const db = require('../models');
 const Store = db.store;
 
 const getAll = async (req, res) => {
-  //  #swagger.description = 'Returns all the product listings in the store.'
+  /*  #swagger.description = 'Returns all the product listings in the store.'
+  #swagger.tags = ['Product Management']
+  */
   try {
     Store.find({})
       .then((data) => {
@@ -20,6 +22,7 @@ const getAll = async (req, res) => {
 
 const getOne = async (req, res) => {
   /*  #swagger.description = 'Returns one product listing from the database.'
+      #swagger.tags = ['Product Management']
       #swagger.parameters['id'] = {
         description: 'The ID for the product listing to retrieve',
         required: 'true',
@@ -44,6 +47,7 @@ const getOne = async (req, res) => {
 
 const listProduct = async (req, res) => {
   /*  #swagger.description = 'Stores a product listing in the database.'
+      #swagger.tags = ['Product Management']
       #swagger.parameters['obj'] = {
         in: 'body',
         description: 'The product listing to add to the database',
@@ -76,6 +80,7 @@ const listProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   /*  #swagger.description = 'Updates a product listing in the database.'
+      #swagger.tags = ['Product Management']
       #swagger.parameters['id'] = {
         description: 'The ID for the product listing to update',
         required: 'true',
@@ -119,6 +124,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   /*  #swagger.description = 'Deletes a product listing from the database.'
+      #swagger.tags = ['Product Management']
       #swagger.parameters['id'] = {
         description: 'The ID for the product listing to delete',
         required: 'true',

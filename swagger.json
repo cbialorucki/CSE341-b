@@ -7,12 +7,25 @@
   },
   "host": "cse341-b.onrender.com",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Account Management",
+      "description": "A suite of APIs for managing accounts stored in the database."
+    },
+    {
+      "name": "Product Management",
+      "description": "A suite of APIs for managing products stored in the database."
+    }
+  ],
   "schemes": [
     "https"
   ],
   "paths": {
     "/products/": {
       "get": {
+        "tags": [
+          "Product Management"
+        ],
         "description": "Returns all the product listings in the store.",
         "parameters": [],
         "responses": {
@@ -25,6 +38,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Product Management"
+        ],
         "description": "Stores a product listing in the database.",
         "parameters": [
           {
@@ -70,6 +86,9 @@
     },
     "/products/{id}": {
       "get": {
+        "tags": [
+          "Product Management"
+        ],
         "description": "Returns one product listing from the database.",
         "parameters": [
           {
@@ -90,6 +109,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Product Management"
+        ],
         "description": "Updates a product listing in the database.",
         "parameters": [
           {
@@ -140,6 +162,9 @@
         "responses": {}
       },
       "delete": {
+        "tags": [
+          "Product Management"
+        ],
         "description": "Deletes a product listing from the database.",
         "parameters": [
           {
@@ -151,8 +176,8 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request"
@@ -165,6 +190,9 @@
     },
     "/account/{id}": {
       "get": {
+        "tags": [
+          "Account Management"
+        ],
         "description": "Returns account information for one account.",
         "parameters": [
           {
@@ -185,6 +213,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Account Management"
+        ],
         "description": "Updates account information.",
         "parameters": [
           {
@@ -241,6 +272,9 @@
         "responses": {}
       },
       "delete": {
+        "tags": [
+          "Account Management"
+        ],
         "description": "Deletes an account from the database.",
         "parameters": [
           {
@@ -252,8 +286,8 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request"
@@ -266,6 +300,9 @@
     },
     "/account/": {
       "post": {
+        "tags": [
+          "Account Management"
+        ],
         "description": "Creates an account.",
         "parameters": [
           {

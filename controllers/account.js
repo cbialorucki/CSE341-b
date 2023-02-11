@@ -3,6 +3,7 @@ const Account = db.account;
 
 const get = (req, res) => {
   /* #swagger.description = 'Returns account information for one account.'
+  #swagger.tags = ['Account Management']
   #swagger.parameters['id'] = {
         description: 'The ID for the account to retrieve',
         required: 'true',
@@ -27,6 +28,7 @@ const get = (req, res) => {
 
 const create = (req, res) => {
   /* #swagger.description = 'Creates an account.'
+  #swagger.tags = ['Account Management']
   #swagger.parameters['obj'] = {
         in: 'body',
         description: 'The account to create.',
@@ -62,6 +64,7 @@ const create = (req, res) => {
 
 const update = async (req, res) => {
   /* #swagger.description = 'Updates account information.'
+  #swagger.tags = ['Account Management']
   #swagger.parameters['id'] = {
         description: 'The ID for the account to update',
         required: 'true',
@@ -107,6 +110,7 @@ const update = async (req, res) => {
 
 const deleteAccount = async (req, res) => {
   /* #swagger.description = 'Deletes an account from the database.'
+  #swagger.tags = ['Account Management']
   #swagger.parameters['id'] = {
         description: 'The ID for the account to delete',
         required: 'true',
