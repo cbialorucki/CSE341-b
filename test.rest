@@ -33,27 +33,29 @@ content-type: application/json
 }
 
 ### Create Account
-POST http://localhost:8080/products HTTP/1.1
+POST http://localhost:8080/account HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Localhost Sample Product",
-    "qty":300,
-    "description":"Product description",
-    "price":5.99,
-    "rating":0.47
+    "username": "example_username",
+    "actualName":  "Name Namison",
+    "email" : "name@example.com",
+    "password": "3x4mp1e_P455w0rd!",
+    "items": [],
+    "privileges": 1
 }
 
 ### Create Account (Should Fail Data Validation)
-POST http://localhost:8080/products HTTP/1.1
+POST http://localhost:8080/account HTTP/1.1
 content-type: application/json
 
 {
-    "title":304,
-    "qty":"Twenty One",
-    "description":1.1,
-    "price":"Free 99",
-    "rating":"Good"
+    "username": 700,
+    "actualName":  1.1,
+    "email" : 6.8,
+    "password": [],
+    "items": "a pink horsey",
+    "privileges": "one"
 }
 
 ### Update Product Listing
@@ -61,23 +63,24 @@ POST http://localhost:8080/products HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Localhost Sample Product",
+    "title":"Updated Localhost Product",
     "qty":300,
-    "description":"Product description",
+    "description":"Updated product description.",
     "price":5.99,
     "rating":0.47
 }
 
 ### Update Account
-POST http://localhost:8080/products HTTP/1.1
+POST http://localhost:8080/account HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Localhost Sample Product",
-    "qty":300,
-    "description":"Product description",
-    "price":5.99,
-    "rating":0.47
+    "username": "xX_Jane1984_Xx",
+    "actualName":  "Jane Jameson",
+    "email" : "jane@example.com",
+    "password": "jAn3s_Password!",
+    "items": [],
+    "privileges": 1
 }
 
 ### Delete Product
@@ -105,7 +108,7 @@ POST https://cse341-b.onrender.com/products HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Localhost Sample Product",
+    "title":"Production Sample Product",
     "qty":300,
     "description":"Product description",
     "price":5.99,
@@ -129,11 +132,12 @@ POST https://cse341-b.onrender.com/products HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Localhost Sample Product",
-    "qty":300,
-    "description":"Product description",
-    "price":5.99,
-    "rating":0.47
+    "username": "example_username",
+    "actualName":  "Name Namison",
+    "email" : "name@example.com",
+    "password": "3x4mp1e_P455w0rd!",
+    "items": [],
+    "privileges": 1
 }
 
 ### Create Account (Should Fail Data Validation)
@@ -141,11 +145,12 @@ POST https://cse341-b.onrender.com/products HTTP/1.1
 content-type: application/json
 
 {
-    "title":304,
-    "qty":"Twenty One",
-    "description":1.1,
-    "price":"Free 99",
-    "rating":"Good"
+    "username": 700,
+    "actualName":  1.1,
+    "email" : 6.8,
+    "password": [],
+    "items": "a pink horsey",
+    "privileges": "one"
 }
 
 ### Update Product Listing
@@ -153,9 +158,9 @@ POST https://cse341-b.onrender.com/products HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Localhost Sample Product",
+    "title":"Updated Production Product",
     "qty":300,
-    "description":"Product description",
+    "description":"Updated product description.",
     "price":5.99,
     "rating":0.47
 }
@@ -165,11 +170,12 @@ POST https://cse341-b.onrender.com/products HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Localhost Sample Product",
-    "qty":300,
-    "description":"Product description",
-    "price":5.99,
-    "rating":0.47
+    "username": "xX_Jane1984_Xx",
+    "actualName":  "Jane Jameson",
+    "email" : "jane@example.com",
+    "password": "jAn3s_Password!",
+    "items": [],
+    "privileges": 1
 }
 
 ### Delete Product
