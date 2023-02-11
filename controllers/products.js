@@ -135,7 +135,7 @@ const deleteProduct = async (req, res) => {
       if (err) {
         res.status(500).json(err || 'An error occurred while deleting the product listing.');
       } else {
-        res.status(204).send(result);
+        res.status(200).send(result);
       }
     });
   } catch (err) {
