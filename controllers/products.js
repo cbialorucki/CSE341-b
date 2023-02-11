@@ -105,7 +105,7 @@ const updateProduct = async (req, res) => {
       return;
     }
     Store.findOne({ _id: id }, function (err, listing) {
-      listing.title = req.params.title;
+      listing.title = req.body.title;
       listing.qty = req.body.qty;
       listing.description = req.body.description;
       listing.price = req.body.price;

@@ -90,7 +90,7 @@ const update = async (req, res) => {
         return;
       }
       Account.findOne({ _id: id }, function (err, account) {
-        account.username = req.params.username;
+        account.username = req.body.username;
         account.password = req.body.password;
         account.actualName = req.body.actualName;
         account.email = req.body.email;
