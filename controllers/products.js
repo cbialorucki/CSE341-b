@@ -137,7 +137,7 @@ const deleteProduct = async (req, res) => {
       res.status(400).send({ message: 'Invalid ID used' });
       return;
     }
-    User.deleteOne({ _id: id }, function (err, result) {
+    Store.deleteOne({ _id: id }, function (err, result) {
       if (err) {
         res.status(500).json(err || 'An error occurred while deleting the product listing.');
       } else {

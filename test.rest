@@ -84,7 +84,7 @@ content-type: application/json
 }
 
 ### Delete Product
-DELETE http://localhost:8080/products/63e596a2249a26406b261c1b
+DELETE http://localhost:8080/products/63e7317c03d9815d20a41429
 
 ### Delete Account
 DELETE http://localhost:8080/account/63e596a2249a26406b261c19
