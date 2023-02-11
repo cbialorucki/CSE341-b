@@ -1,12 +1,15 @@
 /// ***LOCALHOST***
 ### Get All Products
-GET http://localhost:8080/store
+GET http://localhost:8080/products
 
 ### Get One Product
-GET http://localhost:8080/store/63dea7756986c1acdd0f1d79
+GET http://localhost:8080/products/63e5acaec2ea13c357f654e5
+
+### Get One Account
+GET http://localhost:8080/account/63e596a2249a26406b261c19
 
 ### List Product
-POST http://localhost:8080/store HTTP/1.1
+POST http://localhost:8080/products HTTP/1.1
 content-type: application/json
 
 {
@@ -17,27 +20,163 @@ content-type: application/json
     "rating":0.47
 }
 
+### List Product (Should Fail Data Validation)
+POST http://localhost:8080/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":304,
+    "qty":"Twenty One",
+    "description":1.1,
+    "price":"Free 99",
+    "rating":"Good"
+}
+
+### Create Account
+POST http://localhost:8080/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":"Localhost Sample Product",
+    "qty":300,
+    "description":"Product description",
+    "price":5.99,
+    "rating":0.47
+}
+
+### Create Account (Should Fail Data Validation)
+POST http://localhost:8080/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":304,
+    "qty":"Twenty One",
+    "description":1.1,
+    "price":"Free 99",
+    "rating":"Good"
+}
+
+### Update Product Listing
+POST http://localhost:8080/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":"Localhost Sample Product",
+    "qty":300,
+    "description":"Product description",
+    "price":5.99,
+    "rating":0.47
+}
+
+### Update Account
+POST http://localhost:8080/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":"Localhost Sample Product",
+    "qty":300,
+    "description":"Product description",
+    "price":5.99,
+    "rating":0.47
+}
+
+### Delete Product
+DELETE http://localhost:8080/products/63e596a2249a26406b261c1b
+
+### Delete Account
+DELETE http://localhost:8080/account/63e596a2249a26406b261c19
+
 ### API Documentation
 GET http://localhost:8080/api-docs
 
 /// ***PRODUCTION***
+
 ### Get All Products
-GET https://cse341-b.onrender.com/store
+GET https://cse341-b.onrender.com/products
 
 ### Get One Product
-GET https://cse341-b.onrender.com/store/63dea7756986c1acdd0f1d79
+GET https://cse341-b.onrender.com/products/63e5acaec2ea13c357f654e5
+
+### Get One Account
+GET https://cse341-b.onrender.com/account/63e596a2249a26406b261c19
 
 ### List Product
-POST https://cse341-b.onrender.com/store HTTP/1.1
+POST https://cse341-b.onrender.com/products HTTP/1.1
 content-type: application/json
 
 {
-    "title":"Production Sample Product",
-    "qty":200,
+    "title":"Localhost Sample Product",
+    "qty":300,
     "description":"Product description",
-    "price":6.99,
-    "rating":0.77
+    "price":5.99,
+    "rating":0.47
 }
+
+### List Product (Should Fail Data Validation)
+POST https://cse341-b.onrender.com/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":304,
+    "qty":"Twenty One",
+    "description":1.1,
+    "price":"Free 99",
+    "rating":"Good"
+}
+
+### Create Account
+POST https://cse341-b.onrender.com/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":"Localhost Sample Product",
+    "qty":300,
+    "description":"Product description",
+    "price":5.99,
+    "rating":0.47
+}
+
+### Create Account (Should Fail Data Validation)
+POST https://cse341-b.onrender.com/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":304,
+    "qty":"Twenty One",
+    "description":1.1,
+    "price":"Free 99",
+    "rating":"Good"
+}
+
+### Update Product Listing
+POST https://cse341-b.onrender.com/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":"Localhost Sample Product",
+    "qty":300,
+    "description":"Product description",
+    "price":5.99,
+    "rating":0.47
+}
+
+### Update Account
+POST https://cse341-b.onrender.com/products HTTP/1.1
+content-type: application/json
+
+{
+    "title":"Localhost Sample Product",
+    "qty":300,
+    "description":"Product description",
+    "price":5.99,
+    "rating":0.47
+}
+
+### Delete Product
+DELETE https://cse341-b.onrender.com/63e596a2249a26406b261c1b
+
+### Delete Account
+DELETE https://cse341-b.onrender.com/account/63e596a2249a26406b261c19
 
 ### API Documentation
 GET https://cse341-b.onrender.com/api-docs

@@ -1,0 +1,27 @@
+
+{
+    "account1": {
+      "username": "John117",
+      "actualName":  "John Johnson",
+      "email" : "example@example.com",
+      "password": "S4mple_Password!",
+      "items": [],
+      "privileges": 1
+    },
+    "account2": {
+        "username": "xX_Jane1984_Xx",
+        "actualName":  "Jane Jameson",
+        "email" : "jane@example.com",
+        "password": "jAn3s_Password!",
+        "items": [],
+        "privileges": 1
+      },
+      "account3": {
+        "username": "jill.williams",
+        "actualName":  "Jill Williams",
+        "email" : "jilliams@example.com",
+        "password": "3x4mpleP455w0rd!",
+        "items": [],
+        "privileges": 1
+      }
+}

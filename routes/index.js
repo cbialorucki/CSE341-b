@@ -1,4 +1,5 @@
 const router = require('express').Router();
-router.use('/store', require('./store'));
+router.use('/products', require('./products'));
+router.use('/account', require('./account'));
 
 module.exports = router;

@@ -11,26 +11,26 @@
     "https"
   ],
   "paths": {
-    "/store/": {
+    "/products/": {
       "get": {
-        "description": "Returns all the products in the store.",
-        "produces": [
-          "application/json"
-        ],
+        "description": "Returns all the product listings in the store.",
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "description": "Stores a product in the database.",
+        "description": "Stores a product listing in the database.",
         "parameters": [
           {
             "name": "obj",
             "in": "body",
-            "description": "Adds a product to the database",
+            "description": "The product listing to add to the database",
             "schema": {
               "type": "object",
               "properties": {
@@ -68,31 +68,251 @@
         "responses": {}
       }
     },
-    "/store/{id}": {
+    "/products/{id}": {
       "get": {
-        "description": "Returns one product from the database.",
-        "produces": [
-          "application/json"
-        ],
+        "description": "Returns one product listing from the database.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "The ID for the product listing to retrieve"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
           },
-          "201": {
-            "description": "Created"
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "Updates a product listing in the database.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID for the product listing to update"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "The new product listing information",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Updated Product Title"
+                },
+                "qty": {
+                  "type": "number",
+                  "example": 1000
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Updated sample description"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 0.99
+                },
+                "rating": {
+                  "type": "number",
+                  "example": 0.99
+                }
+              },
+              "required": [
+                "title",
+                "qty",
+                "description",
+                "price",
+                "rating"
+              ]
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "description": "Deletes a product listing from the database.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID for the product listing to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
           }
         }
+      }
+    },
+    "/account/{id}": {
+      "get": {
+        "description": "Returns account information for one account.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID for the account to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "Updates account information.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID for the account to update"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "The new account information.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "exampleUsername"
+                },
+                "actualName": {
+                  "type": "string",
+                  "example": "John Q. Adams"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "Sample description"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "HBADujbu&8o@dyc%bdud^3q8959w4!"
+                },
+                "items": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "privileges": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "required": [
+                "username",
+                "actualName",
+                "email",
+                "password",
+                "items",
+                "privileges"
+              ]
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "description": "Deletes an account from the database.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID for the account to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/account/": {
+      "post": {
+        "description": "Creates an account.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "The account to create.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "exampleUsername"
+                },
+                "actualName": {
+                  "type": "string",
+                  "example": "John Q. Adams"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "Sample description"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "HBADujbu&8o@dyc%bdud^3q8959w4!"
+                },
+                "items": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "privileges": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "required": [
+                "username",
+                "actualName",
+                "email",
+                "password",
+                "items",
+                "privileges"
+              ]
+            }
+          }
+        ],
+        "responses": {}
       }
     }
   }
