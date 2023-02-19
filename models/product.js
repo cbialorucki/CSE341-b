@@ -15,6 +15,9 @@ module.exports = (mongoose) => {
       rating: {
         type: Number
       },
+      sid: {
+        type: String
+      },
     });
   
     return mongoose.model('product', productSchema);

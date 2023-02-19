@@ -8,6 +8,7 @@ const getAll = async (req, res) => {
   try {
     Store.find({})
       .then((data) => {
+        data.forEach(function(product){ product.sid = '' });
         res.status(200).send(data);
       })
       .catch((err) => {
@@ -31,8 +32,9 @@ const getOne = async (req, res) => {
   */
   try {
     const id = req.params.id;
-    Store.find({ _id: id })
+    Store.findOne({ _id: id })
       .then((data) => {
+        data.sid = '';
         res.status(200).send(data);
       })
       .catch((err) => {
@@ -61,9 +63,15 @@ const listProduct = async (req, res) => {
       }
   }*/
   try {
-    const listing = new Store(req.body);
-    listing
-      .save()
+    const itemListing = {};
+    itemListing.title = req.body.title;
+    itemListing.qty = req.body.qty;
+    itemListing.description = req.body.description;
+    itemListing.price = req.body.price;
+    itemListing.rating = req.body.rating;
+    itemListing.sid = req.oidc.user.sid;
+    const listing = new Store(itemListing);
+    listing.save()
       .then((data) => {
         console.log(data);
         res.status(201).send(data);
@@ -100,16 +108,23 @@ const updateProduct = async (req, res) => {
   }*/
   try {
     const id = req.params.id;
+    const userId = req.oidc.user.sid;
     if (!id) {
       res.status(400).send({ message: 'Invalid ID used' });
       return;
     }
+    Store.findOne({ _id: id }, function (err, listing) {
+      if(listing.sid != userId){
+        res.status(400).send({ message: "You don't have permission to update this listing." });
+        return;
+      }});
     Store.findOne({ _id: id }, function (err, listing) {
       listing.title = req.body.title;
       listing.qty = req.body.qty;
       listing.description = req.body.description;
       listing.price = req.body.price;
       listing.rating = req.body.rating;
+      listing.sid = userId;
       listing.save(function (err) {
         if (err)
           res.status(500).json(err || 'An error occurred while updating the product listing.');
@@ -133,10 +148,16 @@ const deleteProduct = async (req, res) => {
   */
   try {
     const id = req.params.id;
+    const userId = req.oidc.user.sid;
     if (!id) {
-      res.status(400).send({ message: 'Invalid ID used' });
+      res.status(400).send({ message: 'Invalid product ID' });
       return;
     }
+    Store.findOne({ _id: id }, function (err, listing) {
+      if(listing.sid != userId){
+        res.status(400).send({ message: "You don't have permission to delete this listing." });
+        return;
+      }});
     Store.deleteOne({ _id: id }, function (err, result) {
       if (err) {
         res.status(500).json(err || 'An error occurred while deleting the product listing.');

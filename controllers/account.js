@@ -1,5 +1,6 @@
 const db = require('../models');
 const Account = db.account;
+const { auth, requiresAuth } = require('express-openid-connect');
 
 const get = (req, res) => {
   /* #swagger.description = 'Returns account information for one account.'
@@ -26,7 +27,52 @@ const get = (req, res) => {
     }
 };
 
+const viewAccount = (req, res) => {
+  try{
+    res.status(200).send(JSON.stringify(req.oidc.user, null, 2));
+  }
+  catch (err){
+    res.status(500).json(err);
+  }
+}
+
 const create = (req, res) => {
+  /* #swagger.description = 'Creates an account.'
+  #swagger.tags = ['Account Management']
+  #swagger.parameters['obj'] = {
+        in: 'body',
+        description: 'The account to create.',
+        schema: {
+          $username: 'exampleUsername',
+          $actualName: 'John Q. Adams',
+          $email: 'Sample description',
+          $password: 'HBADujbu&8o@dyc%bdud^3q8959w4!',
+          $items: [],
+          $privileges: 1
+        }
+    }
+  }*/
+    try {
+      if (!req.body.username || !req.body.password) {
+        res.status(400).send({ message: 'Invalid username or password.' });
+        return;
+      }
+      const account = new Account(req.body);
+      account.save().then((data) => {
+          console.log(data);
+          res.status(201).send(data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message: err.message || 'An error occurred while creating the account.'
+          });
+        });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+};
+
+const createFromOAuth = (req, res) => {
   /* #swagger.description = 'Creates an account.'
   #swagger.tags = ['Account Management']
   #swagger.parameters['obj'] = {
@@ -134,4 +180,4 @@ const deleteAccount = async (req, res) => {
     }
 };
 
-module.exports = { get, create, update, deleteAccount };
+module.exports = { get, create, update, deleteAccount, viewAccount };

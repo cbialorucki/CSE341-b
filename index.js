@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require("./models");
-
 const port = process.env.PORT || 8080;
 const app = express();
 const swaggerUi = require('swagger-ui-express');
@@ -15,6 +14,11 @@ app
   })
   .use('/', require('./routes'))
   .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+  // req.isAuthenticated is provided from the auth router
+  app.get('/', (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+  });
 
 process.on('uncaughtException', (err, origin) => {
   console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
