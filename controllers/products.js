@@ -135,12 +135,14 @@ const updateProduct = async (req, res) => {
     Store.findOne({ _id: id }, function (err, listing) {
       if(listing.sub != userId){
         res.status(400).send({ message: "You don't have permission to update this listing." });
-        return;
+      }
+      else if(!listing){
+        res.status(400).send({ message: "This product does not exist." });
       }
       else{
         listing.title = req.body.title;
         listing.qty = req.body.qty;
-        itemListing.shortDesc = req.body.shortDesc;
+        listing.shortDesc = req.body.shortDesc;
         listing.description = req.body.description;
         listing.price = req.body.price;
         listing.rating = req.body.rating;
@@ -173,12 +175,10 @@ const deleteProduct = async (req, res) => {
     const userId = req.oidc.user.sub;
     if (!id) {
       res.status(400).send({ message: 'Invalid product ID' });
-      return;
     }
     Store.findOne({ _id: id }, function(err, listing) {
       if(listing.sub != userId){
         res.status(400).send({ message: "You don't have permission to delete this listing." });
-        return;
       }});
     Store.deleteOne({ _id: id }, function(err, result) {
       if (err) {
