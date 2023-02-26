@@ -130,7 +130,6 @@ const updateProduct = async (req, res) => {
     const userId = req.oidc.user.sub;
     if (!id) {
       res.status(400).send({ message: 'Invalid ID used' });
-      return;
     }
     Store.findOne({ _id: id }, function (err, listing) {
       if(listing.sub != userId){
@@ -185,10 +184,10 @@ const deleteProduct = async (req, res) => {
         res.status(500).json(err || 'An error occurred while deleting the product listing.');
       } 
       else {
-        Account.findOne({sub: req.oidc.user.sub}, function(err, result) {
-          var index = array.indexOf(id);
+        Account.findOne({sub: req.oidc.user.sub}, function(err, account) {
+          let index = account.listings.indexOf(id);
           if (index !== -1) {
-            array.splice(index, 1);
+            account.listings.splice(index, 1);
           }
           result.save(function (err) {
             if (err)
