@@ -34,7 +34,8 @@ const deleteAccount = async (req, res) => {
       Account.findOne({sub: req.oidc.user.sub}, function(err, account){
         if(err) res.status(500).send({message: err.message || 'An error occurred while showing user details.'});
         if(!account){
-          //Empty accounts have no product listings or entries in the DB, just do nothing.
+          //Empty accounts have no product listings or entries in the DB, log out and do nothing.
+          req.oidc.logout();
           res.status(200).send(account);
         }
         else{
