@@ -15,6 +15,13 @@ const doc = {
       description: 'A suite of APIs for managing products stored in the database.',
     }
   ],
+  securityDefinitions: {
+    oAuth: {
+      type: 'oauth2',
+      description: 'The authorization method used by this backend runs on Auth0.',
+      authorizationUrl: 'https://cse341-b.onrender.com/login'
+    }
+  },
   host: 'cse341-b.onrender.com',
   schemes: ['https'],
 };

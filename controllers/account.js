@@ -1,175 +1,55 @@
 const db = require('../models');
 const Account = db.account;
-const { auth, requiresAuth } = require('express-openid-connect');
-
-const get = (req, res) => {
-  /* #swagger.description = 'Returns account information for one account.'
-  #swagger.tags = ['Account Management']
-  #swagger.parameters['id'] = {
-        description: 'The ID for the account to retrieve',
-        required: 'true',
-        type: 'string'
-  }
-  */
-    try {
-      const id = req.params.id;
-      Account.find({ _id: id })
-        .then((data) => {
-          res.status(200).send(data);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message: err.message || 'An error occurred while retrieving the account.'
-          });
-        });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-};
+const Store = db.store;
 
 const viewAccount = (req, res) => {
+  /* #swagger.description = 'Shows details about the current logged in user.'
+  #swagger.tags = ['Account Management']
+  #swagger.security = [{ "oAuth": [] }]
+  */
   try{
-    res.status(200).send(JSON.stringify(req.oidc.user, null, 2));
+    Account.findOne({sub: req.oidc.user.sub}, function(err, account){
+      if(err) res.status(500).send({message: err.message || 'An error occurred while showing user details.'});
+      if(!account){
+        res.status(500).send('This account does not exist.');
+      }
+      else{
+        const userDetails = req.oidc.user;
+        userDetails.listings = account.listings;
+        res.status(200).send(JSON.stringify(userDetails));
+      }
+    });
   }
   catch (err){
     res.status(500).json(err);
   }
 }
 
-const create = (req, res) => {
-  /* #swagger.description = 'Creates an account.'
-  #swagger.tags = ['Account Management']
-  #swagger.parameters['obj'] = {
-        in: 'body',
-        description: 'The account to create.',
-        schema: {
-          $username: 'exampleUsername',
-          $actualName: 'John Q. Adams',
-          $email: 'Sample description',
-          $password: 'HBADujbu&8o@dyc%bdud^3q8959w4!',
-          $items: [],
-          $privileges: 1
-        }
-    }
-  }*/
-    try {
-      if (!req.body.username || !req.body.password) {
-        res.status(400).send({ message: 'Invalid username or password.' });
-        return;
-      }
-      const account = new Account(req.body);
-      account.save().then((data) => {
-          console.log(data);
-          res.status(201).send(data);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message: err.message || 'An error occurred while creating the account.'
-          });
-        });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-};
-
-const createFromOAuth = (req, res) => {
-  /* #swagger.description = 'Creates an account.'
-  #swagger.tags = ['Account Management']
-  #swagger.parameters['obj'] = {
-        in: 'body',
-        description: 'The account to create.',
-        schema: {
-          $username: 'exampleUsername',
-          $actualName: 'John Q. Adams',
-          $email: 'Sample description',
-          $password: 'HBADujbu&8o@dyc%bdud^3q8959w4!',
-          $items: [],
-          $privileges: 1
-        }
-    }
-  }*/
-    try {
-      if (!req.body.username || !req.body.password) {
-        res.status(400).send({ message: 'Invalid username or password.' });
-        return;
-      }
-      const account = new Account(req.body);
-      account.save().then((data) => {
-          console.log(data);
-          res.status(201).send(data);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message: err.message || 'An error occurred while creating the account.'
-          });
-        });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-};
-
-const update = async (req, res) => {
-  /* #swagger.description = 'Updates account information.'
-  #swagger.tags = ['Account Management']
-  #swagger.parameters['id'] = {
-        description: 'The ID for the account to update',
-        required: 'true',
-        type: 'string'
-  }
-  #swagger.parameters['obj'] = {
-        in: 'body',
-        description: 'The new account information.',
-        schema: {
-          $username: 'exampleUsername',
-          $actualName: 'John Q. Adams',
-          $email: 'Sample description',
-          $password: 'HBADujbu&8o@dyc%bdud^3q8959w4!',
-          $items: [],
-          $privileges: 1
-        }
-  }
-  }*/
-    try {
-      const id = req.params.id;
-      if (!id) {
-        res.status(400).send({ message: 'Invalid account ID.' });
-        return;
-      }
-      Account.findOne({ _id: id }, function (err, account) {
-        account.username = req.body.username;
-        account.password = req.body.password;
-        account.actualName = req.body.actualName;
-        account.email = req.body.email;
-        account.items = req.body.items;
-        account.privileges = req.body.privileges;
-        account.save(function (err) {
-          if (err)
-            res.status(500).json(err || 'An error occurred while updating the account.');
-          else
-            res.status(204).send();
-        });
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-};
-
 const deleteAccount = async (req, res) => {
-  /* #swagger.description = 'Deletes an account from the database.'
+  /* #swagger.description = 'Deletes the logged in user from the database.'
   #swagger.tags = ['Account Management']
-  #swagger.parameters['id'] = {
-        description: 'The ID for the account to delete',
-        required: 'true',
-        type: 'string'
-  }
+  #swagger.security = [{ "oAuth": [] }]
   */
     try {
-      const id = req.params.id;
-      if (!id) {
-        res.status(400).send({ message: 'Invalid account ID.' });
-        return;
-      }
-      Account.deleteOne({ _id: id }, function (err, result) {
+      Account.findOne({sub: req.oidc.user.sub}, function(err, account){
+        if(err) res.status(500).send({message: err.message || 'An error occurred while showing user details.'});
+        if(!account){
+          res.status(500).send('This account does not exist.');
+        }
+        else{
+          account.listings.forEach(listing => {
+            Store.deleteOne({ _id: listing }, function (err, result) {
+              if (err) {
+                res.status(500).json(err || 'An error occurred while deleting the product listings for this account.');
+              } else {
+                console.log(result);
+                account.listings.pop();
+              }
+            });
+          });
+        }
+      });
+      Account.deleteOne({ sub: req.oidc.user.sub }, function (err, result) {
         if (err) 
           res.status(500).json(err || 'An error occurred while deleting the account.');
         else
@@ -180,4 +60,4 @@ const deleteAccount = async (req, res) => {
     }
 };
 
-module.exports = { get, create, update, deleteAccount, viewAccount };
+module.exports = { viewAccount, deleteAccount };

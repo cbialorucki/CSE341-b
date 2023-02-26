@@ -20,8 +20,15 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "oAuth": {
+      "type": "oauth2",
+      "description": "The authorization method used by this backend runs on Auth0.",
+      "authorizationUrl": "https://cse341-b.onrender.com/login"
+    }
+  },
   "paths": {
-    "/products/": {
+    "/products": {
       "get": {
         "tags": [
           "Product Management"
@@ -58,9 +65,13 @@
                   "type": "number",
                   "example": 999
                 },
+                "shortDesc": {
+                  "type": "string",
+                  "example": "A short description, usually seen immediately after selecting an item."
+                },
                 "description": {
                   "type": "string",
-                  "example": "Sample description"
+                  "example": "A lengthier description. This would appear below the product listing in most UIs."
                 },
                 "price": {
                   "type": "number",
@@ -74,6 +85,7 @@
               "required": [
                 "title",
                 "qty",
+                "shortDesc",
                 "description",
                 "price",
                 "rating"
@@ -81,7 +93,12 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {},
+        "security": [
+          {
+            "oAuth": []
+          }
+        ]
       }
     },
     "/products/{id}": {
@@ -136,9 +153,13 @@
                   "type": "number",
                   "example": 1000
                 },
+                "shortDesc": {
+                  "type": "string",
+                  "example": "An updated short description, usually seen immediately after selecting an item."
+                },
                 "description": {
                   "type": "string",
-                  "example": "Updated sample description"
+                  "example": "An updated lengthier description. This would appear below the product listing in most UIs."
                 },
                 "price": {
                   "type": "number",
@@ -152,6 +173,7 @@
               "required": [
                 "title",
                 "qty",
+                "shortDesc",
                 "description",
                 "price",
                 "rating"
@@ -159,7 +181,12 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {},
+        "security": [
+          {
+            "oAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -185,24 +212,21 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oAuth": []
+          }
+        ]
       }
     },
-    "/account/{id}": {
+    "/account": {
       "get": {
         "tags": [
           "Account Management"
         ],
-        "description": "Returns account information for one account.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The ID for the account to retrieve"
-          }
-        ],
+        "description": "Shows details about the current logged in user.",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -210,146 +234,32 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
-      },
-      "put": {
-        "tags": [
-          "Account Management"
-        ],
-        "description": "Updates account information.",
-        "parameters": [
+        },
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The ID for the account to update"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "The new account information.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "example": "exampleUsername"
-                },
-                "actualName": {
-                  "type": "string",
-                  "example": "John Q. Adams"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "Sample description"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "HBADujbu&8o@dyc%bdud^3q8959w4!"
-                },
-                "items": {
-                  "type": "array",
-                  "example": [],
-                  "items": {}
-                },
-                "privileges": {
-                  "type": "number",
-                  "example": 1
-                }
-              },
-              "required": [
-                "username",
-                "actualName",
-                "email",
-                "password",
-                "items",
-                "privileges"
-              ]
-            }
+            "oAuth": []
           }
-        ],
-        "responses": {}
+        ]
       },
       "delete": {
         "tags": [
           "Account Management"
         ],
-        "description": "Deletes an account from the database.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The ID for the account to delete"
-          }
-        ],
+        "description": "Deletes the logged in user from the database.",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
-          },
           "500": {
             "description": "Internal Server Error"
           }
-        }
-      }
-    },
-    "/account/": {
-      "post": {
-        "tags": [
-          "Account Management"
-        ],
-        "description": "Creates an account.",
-        "parameters": [
+        },
+        "security": [
           {
-            "name": "obj",
-            "in": "body",
-            "description": "The account to create.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "example": "exampleUsername"
-                },
-                "actualName": {
-                  "type": "string",
-                  "example": "John Q. Adams"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "Sample description"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "HBADujbu&8o@dyc%bdud^3q8959w4!"
-                },
-                "items": {
-                  "type": "array",
-                  "example": [],
-                  "items": {}
-                },
-                "privileges": {
-                  "type": "number",
-                  "example": 1
-                }
-              },
-              "required": [
-                "username",
-                "actualName",
-                "email",
-                "password",
-                "items",
-                "privileges"
-              ]
-            }
+            "oAuth": []
           }
-        ],
-        "responses": {}
+        ]
       }
     }
   }

@@ -6,6 +6,9 @@ module.exports = (mongoose) => {
       qty: {
         type: Number
       },
+      shortDesc: {
+        type: String
+      },
       description: {
         type: String
       },
@@ -15,7 +18,7 @@ module.exports = (mongoose) => {
       rating: {
         type: Number
       },
-      sid: {
+      sub: {
         type: String
       },
     });

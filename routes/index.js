@@ -31,8 +31,9 @@ app.put("/products/:id", requiresAuth(), productController.updateProduct);
 app.delete("/products/:id", requiresAuth(), productController.deleteProduct);
 
 //[PRIVATE](GET) View Account Details
-app.get('/account', requiresAuth(), (req, res) =>
-    res.send(JSON.stringify(req.oidc.user))
-);
+app.get('/account', requiresAuth(), accountController.viewAccount);
+
+//[PRIVATE](DELETE) View Account Details
+app.delete('/account', requiresAuth(), accountController.deleteAccount);
 
 module.exports = app;
