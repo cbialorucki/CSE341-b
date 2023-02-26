@@ -19,7 +19,8 @@ const doc = {
     oAuth: {
       type: 'oauth2',
       description: 'The authorization method used by this backend runs on Auth0.',
-      authorizationUrl: 'https://cse341-b.onrender.com/login'
+      authorizationUrl: 'https://cse341-b.onrender.com/login',
+      flow: 'authorizationCode'
     }
   },
   host: 'cse341-b.onrender.com',
