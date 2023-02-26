@@ -11,7 +11,7 @@ const viewAccount = (req, res) => {
     Account.findOne({sub: req.oidc.user.sub}, function(err, account){
       if(err) res.status(500).send({message: err.message || 'An error occurred while showing user details.'});
       if(!account){
-        res.status(500).send('This account does not exist.');
+        res.status(200).send(JSON.stringify(userDetails));
       }
       else{
         const userDetails = req.oidc.user;
@@ -34,7 +34,8 @@ const deleteAccount = async (req, res) => {
       Account.findOne({sub: req.oidc.user.sub}, function(err, account){
         if(err) res.status(500).send({message: err.message || 'An error occurred while showing user details.'});
         if(!account){
-          res.status(500).send('This account does not exist.');
+          //Empty accounts have no product listings or entries in the DB, just do nothing.
+          res.status(200).send(account);
         }
         else{
           account.listings.forEach(listing => {
