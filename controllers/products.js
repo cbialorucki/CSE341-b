@@ -189,7 +189,7 @@ const deleteProduct = async (req, res) => {
           if (index !== -1) {
             account.listings.splice(index, 1);
           }
-          result.save(function (err) {
+          account.save(function (err) {
             if (err)
               res.status(500).json(err || 'An error occurred while removing the product listing from your account.');
           });
