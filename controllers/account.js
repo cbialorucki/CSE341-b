@@ -11,7 +11,7 @@ const viewAccount = (req, res) => {
     Account.findOne({sub: req.oidc.user.sub}, function(err, account){
       if(err) res.status(500).send({message: err.message || 'An error occurred while showing user details.'});
       if(!account){
-        res.status(200).send(JSON.stringify(userDetails));
+        res.status(200).send(JSON.stringify(req.oidc.user));
       }
       else{
         const userDetails = req.oidc.user;
